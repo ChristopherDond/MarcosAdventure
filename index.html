@@ -46,9 +46,11 @@
             box-shadow: 0 0 40px rgba(0, 247, 255, 0.1), inset 0 0 20px rgba(0,0,0,0.5);
             background: #000;
             overflow: hidden;
+            max-width: 95vw;
+            max-height: 90vh;
         }
 
-        canvas { display: block; cursor: crosshair; filter: saturate(1.2) contrast(1.1); }
+        canvas { display: block; cursor: crosshair; filter: saturate(1.2) contrast(1.1); max-width: 100%; height: auto; }
 
         #ui {
             position: absolute;
@@ -91,7 +93,6 @@
 
         .boss-ui { border-color: rgba(255, 0, 255, 0.3); text-align: right; }
 
-        /* TELA DE VITÓRIA RESTAURADA (Dourada/Original) */
         #victoryScreen, #startScreen {
             display: none;
             text-align: center;
@@ -167,7 +168,7 @@
             </div>
         </div>
         
-        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <canvas id="gameCanvas" width="1000" height="800"></canvas>
 
         <div id="victoryScreen">
             <h1 class="glitch-text">VITÓRIA SUPREMA</h1>
@@ -242,8 +243,16 @@
             this.width = 50; this.height = 50;
             this.x = canvas.width/2 - 25; this.y = canvas.height - 100;
             this.speed = 7; this.hp = 100;
-            this.weaponLevel = 1; this.lastShot = 0; this.shootDelay = 180; // Suave nerf na cadência
+            this.weaponLevel = 1; this.lastShot = 0; this.shootDelay = 180;
             this.furyMode = 0; 
+        }
+        takeDamage(amount) {
+            if (this.furyMode <= 0) {
+                this.hp -= amount;
+                shake = 12;
+                if(frames % 5 === 0) playSound(50, 'square', 0.2);
+                for(let i=0; i<5; i++) particles.push(new Particle(this.x+25, this.y+25, 'red', 4));
+            }
         }
         update() {
             let moveX = 0, moveY = 0;
@@ -290,18 +299,16 @@
             const mx = this.x + this.width/2 - 3;
             let lvl = isFury ? 4 : this.weaponLevel;
 
-            // AJUSTE DE EQUILÍBRIO (NERF NOS BUFFS)
             if (lvl === 1) {
                 bullets.push(new Bullet(mx, this.y, -12, 'player', color));
             } else if (lvl === 2) {
-                bullets.push(new Bullet(mx - 15, this.y, -11, 'player', color)); // Ligeiramente mais devagar
+                bullets.push(new Bullet(mx - 15, this.y, -11, 'player', color));
                 bullets.push(new Bullet(mx + 15, this.y, -11, 'player', color));
             } else if (lvl === 3) {
                 bullets.push(new Bullet(mx, this.y, -12, 'player', color));
-                bullets.push(new Bullet(mx - 20, this.y, -10, 'player', color, -1.5)); // Ângulo reduzido
+                bullets.push(new Bullet(mx - 20, this.y, -10, 'player', color, -1.5));
                 bullets.push(new Bullet(mx + 20, this.y, -10, 'player', color, 1.5));
             } else {
-                // Nível 4 equilibrado: mais projéteis, porém menos dano concentrado
                 for(let i=-2; i<=2; i++) {
                     bullets.push(new Bullet(mx, this.y, -10, 'player', color, i*2.5));
                 }
@@ -338,7 +345,6 @@
             this.flash = 0;
         }
         takeDamage() {
-            // Dano calibrado para não morrer tão rápido com buffs
             const damageFactor = player.furyMode > 0 ? 0.04 : 0.025;
             this.hp -= (this.maxHp * damageFactor);
             this.flash = 5;
@@ -357,17 +363,21 @@
                 this.flash--;
             }
         }
+        checkPlayerCollision(p) {
+            if(intersect(p, this)) p.takeDamage(0.5);
+        }
     }
 
     class Boss1 extends Boss {
         update() {
             if(this.y < 80) this.y += 2;
             this.timer++;
-            this.x = (canvas.width/2 - this.width/2) + Math.sin(this.timer * 0.03) * 250;
+            this.x = (canvas.width/2 - this.width/2) + Math.sin(this.timer * 0.03) * 350;
             if(this.timer % 40 === 0) {
                 bullets.push(new Bullet(this.x + this.width/2, this.y + this.height, 6, 'boss', 'red'));
                 playSound(80, 'sine', 0.2);
             }
+            this.checkPlayerCollision(player);
         }
         draw() {
             ctx.save();
@@ -388,6 +398,7 @@
                 const by = this.y + 50 + Math.sin(this.timer)*100;
                 bullets.push(new Bullet(bx, by, 5, 'boss', '#ff9900'));
             }
+            this.checkPlayerCollision(player);
         }
         draw() {
             const x1 = this.x + Math.cos(this.timer) * 150, y1 = this.y + Math.sin(this.timer) * 150;
@@ -399,6 +410,13 @@
             ctx.restore(); ctx.filter = 'none';
             this.drawHP();
         }
+        checkPlayerCollision(p) {
+            const x1 = this.x + Math.cos(this.timer) * 150, y1 = this.y + Math.sin(this.timer) * 150;
+            const x2 = this.x + Math.cos(this.timer + Math.PI) * 150, y2 = this.y + Math.sin(this.timer + Math.PI) * 150;
+            if(intersect(p, {x:x1, y:y1, width:90, height:90}) || intersect(p, {x:x2, y:y2, width:90, height:90})) {
+                p.takeDamage(0.5);
+            }
+        }
         checkCollision(rect) {
             const x1 = this.x + Math.cos(this.timer) * 150, y1 = this.y + Math.sin(this.timer) * 150;
             const x2 = this.x + Math.cos(this.timer + Math.PI) * 150, y2 = this.y + Math.sin(this.timer + Math.PI) * 150;
@@ -407,15 +425,16 @@
     }
 
     class Boss3 extends Boss {
-        constructor(n, h, c, i) { super(n,h,c,i); this.width = 250; this.height = 150; }
+        constructor(n, h, c, i) { super(n,h,c,i); this.width = 300; this.height = 200; }
         update() {
             this.timer++;
-            this.y = 70 + Math.sin(this.timer * 0.04) * 40;
-            this.x = (canvas.width/2 - this.width/2) + Math.sin(this.timer * 0.02) * 200;
+            this.y = 100 + Math.sin(this.timer * 0.04) * 60;
+            this.x = (canvas.width/2 - this.width/2) + Math.sin(this.timer * 0.02) * 300;
             if(this.timer % 45 === 0) {
                 for(let i=-3; i<=3; i++) bullets.push(new Bullet(this.x + this.width/2, this.y + this.height, 4, 'boss', '#bc13fe', i*3));
                 playSound(60, 'sawtooth', 0.3);
             }
+            this.checkPlayerCollision(player);
         }
         draw() {
             ctx.save(); this.applyFlash();
@@ -451,7 +470,7 @@
         ctx.fillStyle = '#050508';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = 'rgba(255,255,255,0.5)';
-        for(let i=0; i<40; i++) {
+        for(let i=0; i<60; i++) {
             let sX = (i * 137) % canvas.width;
             let sY = (i * 159 + frames * (i%3 + 1)) % canvas.height;
             ctx.fillRect(sX, sY, 1.5, 1.5);
@@ -491,12 +510,7 @@
                     b.markedForDeletion = true;
                 }
             } else if(intersect(b, player)) {
-                if(player.furyMode <= 0) {
-                    player.hp -= 10;
-                    shake = 12;
-                    playSound(50, 'square', 0.2);
-                    for(let i=0; i<10; i++) particles.push(new Particle(player.x+25, player.y+25, 'red', 4));
-                }
+                player.takeDamage(10);
                 b.markedForDeletion = true;
             }
         });
@@ -510,7 +524,10 @@
             else { player.hp = Math.min(100, player.hp + 40); }
         }
 
-        if(player.hp <= 0) { location.reload(); }
+        if(player.hp <= 0) { 
+            gameState = 'gameOver';
+            location.reload(); 
+        }
 
         bullets = bullets.filter(b => !b.markedForDeletion);
         particles.forEach((p, i) => { p.update(); if(p.life <= 0) particles.splice(i,1); else p.draw(); });
@@ -524,7 +541,7 @@
         document.getElementById('weaponLevel').style.color = player.furyMode > 0 ? 'var(--fury-color)' : 'var(--neon-blue)';
 
         ctx.restore();
-        requestAnimationFrame(loop);
+        if(gameState === 'playing') requestAnimationFrame(loop);
     }
 
     function showVictory() {
