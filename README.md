@@ -6,7 +6,7 @@
 
 ## About
 
-**Marcos Adventure** is an action game built entirely with HTML, CSS, and vanilla JavaScript — no frameworks, no dependencies, just raw front-end energy.
+**Marcos Adventure** is an action game built entirely with HTML — no frameworks, no dependencies, just raw front-end energy.
 
 The player faces **3 epic bosses**, each one based on a sticker of the professor himself, in increasingly brutal battles. It's educational. *In a way.*
 
@@ -43,9 +43,6 @@ cd MarcosAdventure
 ```
 MarcosAdventure/
 ├── index.html       # Game entry point
-├── style.css        # Styles and animations
-├── game.js          # Core game logic
-└── assets/          # Sprites and professor stickers
 ```
 
 ---
@@ -75,6 +72,12 @@ No external libraries. Zero dependencies. Pure guerrilla front-end.
 Want to play on your phone? There's a version optimized for mobile devices:
 
 👉 **[Marcos Adventure — Mobile](https://github.com/ChristopherDond/MarcosAdventureMobile)**
+
+---
+
+## Game
+
+👉 **[Marcos Adventure](https://christopherdond.github.io/MarcosAdventure/)**
 
 ---
 
