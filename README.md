@@ -1,3 +1,5 @@
+[Leia em Português (Brasil)](README-pt-br.md)
+
 # ⚔️ Marcos Adventure
 
 > *"Every great hero needs a great villain — and here we have three."*
