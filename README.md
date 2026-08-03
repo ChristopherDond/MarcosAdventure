@@ -1,100 +1,133 @@
-[Leia em Português (Brasil)](README-pt-br.md)
+# ⚔️ Marcos Adventure — Ultra Edition
 
-# ⚔️ Marcos Adventure
+> *"Todo grande herói precisa de um grande vilão — e aqui temos três."*
 
-> *"Every great hero needs a great villain — and here we have three."*
+**Marcos Adventure** é um jogo de tiro espacial (shoot 'em up) no estilo **bullet-hell neon**, construído 100% com HTML5 Canvas, CSS e JavaScript puro — sem frameworks, sem dependências.
 
----
+O jogador controla **Marcos** e enfrenta **3 chefes épicos** (baseados em stickers do professor) em batalhas cada vez mais brutais, com fases cheias de inimigos, power-ups e efeitos visuais.
 
-## About
-
-**Marcos Adventure** is an action game built entirely with HTML — no frameworks, no dependencies, just raw front-end energy.
-
-The player faces **3 epic bosses**, each one based on a sticker of the professor himself, in increasingly brutal battles. It's educational. *In a way.*
-
-> ⚠️ **Disclaimer:** No professors were harmed during the development of this game. Emotionally, maybe.
+> ⚠️ **Aviso:** Nenhum professor foi ferido durante o desenvolvimento deste jogo. Emocionalmente, talvez.
 
 ---
 
-## Gameplay
+## 🎮 Jogabilidade
 
-- **3 unique bosses** — each with their own behavior, look, and difficulty
-- **Straightforward combat system** — you vs. the professor
-- **Progressive stages** — defeat one boss to unlock the next
-- **100% browser-based** — no installation, no setup, just open and play
+- **3 fases + 3 chefes únicos** — cada um com padrões de ataque próprios
+- **Sistema de armas progressivo** — colete power-ups para evoluir do nível 1 ao 4
+- **OVERDRIVE (Fúria)** — ative a fúria de Marcos para ficar temporariamente invencível e disparar em barragem
+- **Inimigos variados** — 4 tipos: básico, serpenteante, tanque e zigue-zague
+- **Power-ups** — cura, melhoria de arma e fúria
+- **Efeitos visuais** — partículas, explosões, screen-shake, nebulosas, estrelas com parallax, scanlines CRT
+- **Sons 8-bit** gerados proceduralmente (sem arquivos de áudio!)
+- **Pausa, som liga/desliga, modo lento de mira (SHIFT)**
+- **100% no navegador** — sem instalação, é só abrir e jogar
 
 ---
 
-## Getting Started
+## 🕹️ Controles
 
-You don't need to install anything. Literally.
+| Tecla | Ação |
+|---|---|
+| `W A S D` / `← ↑ ↓ →` | Mover |
+| `ESPAÇO` | Atirar |
+| `SHIFT` | Movimento lento (mira) |
+| `P` / `ESC` | Pausar |
+| `M` | Som liga/desliga |
+
+---
+
+## 🚀 Começando
+
+Você não precisa instalar nada. Literalmente.
 
 ```bash
-# Clone the repository
+# Clone o repositório
 git clone https://github.com/ChristopherDond/MarcosAdventure.git
 cd MarcosAdventure
 
-# Open index.html in your browser
-# (or just drag the file into your browser, that works too)
+# Abra o index.html no seu navegador
+# (ou apenas arraste o arquivo para o navegador, também funciona)
 ```
+
+> 💡 **Dica:** Use a extensão [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) no VS Code para uma melhor experiência de desenvolvimento.
 
 ---
 
-## Project Structure
+## 📁 Estrutura do Projeto
 
 ```
 MarcosAdventure/
-├── index.html       # Game entry point
+├── index.html            # Ponto de entrada do jogo
+├── css/
+│   └── style.css         # Estilo, HUD, overlays, neon
+├── js/
+│   ├── config.js         # Configuração central (balanceamento)
+│   ├── audio.js          # Sons 8-bit procedurais
+│   ├── input.js          # Teclado + toque
+│   ├── particles.js      # Partículas, explosões, anéis
+│   ├── bullets.js        # Projéteis
+│   ├── background.js     # Estrelas, nebulosas, parallax
+│   ├── player.js         # Marcos: movimento, tiro, fúria
+│   ├── enemies.js        # Inimigos das fases
+│   ├── bosses.js         # Os 3 chefes
+│   ├── ui.js             # HUD, telas, câmera
+│   └── main.js           # Game loop, fases, colisões
+└── assets/
+    ├── marcos4.png       # Sprite do Marcos (fundo removido)
+    ├── quecedisse.png    # Chefe 1
+    ├── quetristeza.png   # Chefe 2
+    ├── bossAbsoluto.png  # Chefe 3
+    └── marcos1.gif       # GIF da vitória (mantido!)
 ```
 
 ---
 
-## The Bosses
+## 🧑‍🏫 Os Chefes
 
-| # | Boss | Difficulty | Notes |
-|---|------|------------|-------|
-| 1 | Que Ce Disse | ⭐ Easy | Still in a good mood. For now. |
-| 2 | Que Tristeza | ⭐⭐ Medium | He just saw your grade. |
-| 3 | Boss Absoluto | ⭐⭐⭐ Hard | You didn't submit the assignment. God help you. |
-
----
-
-## Tech Stack
-
-- **HTML5** — game structure
-- **CSS3** — animations and visual style
-- **JavaScript (Vanilla)** — game logic, collisions, and boss behavior
-
-No external libraries. Zero dependencies. Pure guerrilla front-end.
+| # | Chefe | Dificuldade | Padrão de ataque |
+|---|---|---|---|
+| 1 | Que Cê Disse? | ⭐ Fácil | Leques de balas, tiro mirado, anel |
+| 2 | Que Tristeza | ⭐⭐ Médio | Anéis, tiros duplos, **fantasmas orbitais** |
+| 3 | Marcos Absoluto | ⭐⭐⭐ Difícil | Barragens, **mísseis teleguiados**, anéis duplos |
 
 ---
 
-## Mobile Version
+## 🛠️ Stack Tecnológico
 
-Want to play on your phone? There's a version optimized for mobile devices:
+- **HTML5** — estrutura do jogo
+- **CSS3** — animações e estilo visual
+- **JavaScript (Vanilla)** — lógica do jogo, colisões e comportamento dos chefes
 
-👉 **[Marcos Adventure — Mobile](https://github.com/ChristopherDond/MarcosAdventureMobile)**
+Sem bibliotecas externas. Zero dependências. Front-end puro de guerrilha.
 
 ---
 
-## Game
+## 📱 Versão Mobile
+
+Quer jogar no celular? Existe uma versão otimizada para dispositivos móveis:
+
+👉 **[Marcos Adventure — Mobile](https://github.com/ChristopherDond/MarcosAdventureMobal)**
+
+---
+
+## 🕹️ Jogue agora
 
 👉 **[Marcos Adventure](https://christopherdond.github.io/MarcosAdventure/)**
 
 ---
 
-## Author
+## 👤 Autor
 
-Built with care (and a hint of student revenge) by **Christopher**.
-
----
-
-## License
-
-Free to use for educational, recreational, and controlled mockery purposes.
-
-*Is the professor aware of this repository? Perhaps. Probably. Good luck.*
+Construído com carinho (e um toque de vingança estudantil) por **Christopher**.
 
 ---
 
-*Made with ☕ and pure HTML*
+## 📄 Licença
+
+Livre para uso educacional, recreativo e para zoação controlada.
+
+*O professor sabe da existência deste repositório? Talvez. Provavelmente. Boa sorte.*
+
+---
+
+*Feito com ☕, HTML puro e muita vingança estudantil*
