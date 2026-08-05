@@ -1,133 +1,135 @@
 # ⚔️ Marcos Adventure — Ultra Edition
 
-> *"Todo grande herói precisa de um grande vilão — e aqui temos três."*
+> *"Every great hero needs a great villain — and here we have three."*
 
-**Marcos Adventure** é um jogo de tiro espacial (shoot 'em up) no estilo **bullet-hell neon**, construído 100% com HTML5 Canvas, CSS e JavaScript puro — sem frameworks, sem dependências.
+**[Versão em Português](README-pt-br.md)**
 
-O jogador controla **Marcos** e enfrenta **3 chefes épicos** (baseados em stickers do professor) em batalhas cada vez mais brutais, com fases cheias de inimigos, power-ups e efeitos visuais.
+**Marcos Adventure** is a space shooter (shoot 'em up) in the **neon bullet-hell** style, built 100% with HTML5 Canvas, CSS and pure JavaScript — no frameworks, no dependencies.
 
-> ⚠️ **Aviso:** Nenhum professor foi ferido durante o desenvolvimento deste jogo. Emocionalmente, talvez.
+The player controls **Marcos** and faces **3 epic bosses** (based on the professor's stickers) in increasingly brutal battles, with stages full of enemies, power-ups and visual effects.
 
----
-
-## 🎮 Jogabilidade
-
-- **3 fases + 3 chefes únicos** — cada um com padrões de ataque próprios
-- **Sistema de armas progressivo** — colete power-ups para evoluir do nível 1 ao 4
-- **OVERDRIVE (Fúria)** — ative a fúria de Marcos para ficar temporariamente invencível e disparar em barragem
-- **Inimigos variados** — 4 tipos: básico, serpenteante, tanque e zigue-zague
-- **Power-ups** — cura, melhoria de arma e fúria
-- **Efeitos visuais** — partículas, explosões, screen-shake, nebulosas, estrelas com parallax, scanlines CRT
-- **Sons 8-bit** gerados proceduralmente (sem arquivos de áudio!)
-- **Pausa, som liga/desliga, modo lento de mira (SHIFT)**
-- **100% no navegador** — sem instalação, é só abrir e jogar
+> ⚠️ **Warning:** No professor was harmed during the development of this game. Emotionally, maybe.
 
 ---
 
-## 🕹️ Controles
+## 🎮 Gameplay
 
-| Tecla | Ação |
+- **3 stages + 3 unique bosses** — each with its own attack patterns
+- **Progressive weapon system** — collect power-ups to evolve from level 1 to 4
+- **OVERDRIVE (Fury)** — activate Marcos's fury to become temporarily invincible and fire a barrage
+- **Varied enemies** — 4 types: basic, weaving, tank and zig-zag
+- **Power-ups** — heal, weapon upgrade and fury
+- **Visual effects** — particles, explosions, screen-shake, nebulas, parallax stars, CRT scanlines
+- **Procedurally generated 8-bit sounds** (no audio files!)
+- **Pause, sound on/off, slow aim mode (SHIFT)**
+- **100% in the browser** — no installation, just open and play
+
+---
+
+## 🕹️ Controls
+
+| Key | Action |
 |---|---|
-| `W A S D` / `← ↑ ↓ →` | Mover |
-| `ESPAÇO` | Atirar |
-| `SHIFT` | Movimento lento (mira) |
-| `P` / `ESC` | Pausar |
-| `M` | Som liga/desliga |
+| `W A S D` / `← ↑ ↓ →` | Move |
+| `SPACE` | Fire |
+| `SHIFT` | Slow movement (aim) |
+| `P` / `ESC` | Pause |
+| `M` | Toggle sound |
 
 ---
 
-## 🚀 Começando
+## 🚀 Getting Started
 
-Você não precisa instalar nada. Literalmente.
+You don't need to install anything. Literally.
 
 ```bash
-# Clone o repositório
+# Clone the repository
 git clone https://github.com/ChristopherDond/MarcosAdventure.git
 cd MarcosAdventure
 
-# Abra o index.html no seu navegador
-# (ou apenas arraste o arquivo para o navegador, também funciona)
+# Open index.html in your browser
+# (or just drag the file into the browser — that works too)
 ```
 
-> 💡 **Dica:** Use a extensão [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) no VS Code para uma melhor experiência de desenvolvimento.
+> 💡 **Tip:** Use the [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) extension in VS Code for a better development experience.
 
 ---
 
-## 📁 Estrutura do Projeto
+## 📁 Project Structure
 
 ```
 MarcosAdventure/
-├── index.html            # Ponto de entrada do jogo
+├── index.html            # Game entry point
 ├── css/
-│   └── style.css         # Estilo, HUD, overlays, neon
+│   └── style.css         # Style, HUD, overlays, neon
 ├── js/
-│   ├── config.js         # Configuração central (balanceamento)
-│   ├── audio.js          # Sons 8-bit procedurais
-│   ├── input.js          # Teclado + toque
-│   ├── particles.js      # Partículas, explosões, anéis
-│   ├── bullets.js        # Projéteis
-│   ├── background.js     # Estrelas, nebulosas, parallax
-│   ├── player.js         # Marcos: movimento, tiro, fúria
-│   ├── enemies.js        # Inimigos das fases
-│   ├── bosses.js         # Os 3 chefes
-│   ├── ui.js             # HUD, telas, câmera
-│   └── main.js           # Game loop, fases, colisões
+│   ├── config.js         # Central configuration (balancing)
+│   ├── audio.js          # Procedural 8-bit sounds
+│   ├── input.js          # Keyboard + touch
+│   ├── particles.js      # Particles, explosions, rings
+│   ├── bullets.js        # Projectiles
+│   ├── background.js     # Stars, nebulas, parallax
+│   ├── player.js         # Marcos: movement, shooting, fury
+│   ├── enemies.js        # Stage enemies
+│   ├── bosses.js         # The 3 bosses
+│   ├── ui.js             # HUD, screens, camera
+│   └── main.js           # Game loop, stages, collisions
 └── assets/
-    ├── marcos4.png       # Sprite do Marcos (fundo removido)
-    ├── quecedisse.png    # Chefe 1
-    ├── quetristeza.png   # Chefe 2
-    ├── bossAbsoluto.png  # Chefe 3
-    └── marcos1.gif       # GIF da vitória (mantido!)
+    ├── marcos4.png       # Marcos sprite (background removed)
+    ├── quecedisse.png    # Boss 1
+    ├── quetristeza.png   # Boss 2
+    ├── bossAbsoluto.png  # Boss 3
+    └── marcos1.gif       # Victory GIF (kept!)
 ```
 
 ---
 
-## 🧑‍🏫 Os Chefes
+## 🧑‍🏫 The Bosses
 
-| # | Chefe | Dificuldade | Padrão de ataque |
+| # | Boss | Difficulty | Attack pattern |
 |---|---|---|---|
-| 1 | Que Cê Disse? | ⭐ Fácil | Leques de balas, tiro mirado, anel |
-| 2 | Que Tristeza | ⭐⭐ Médio | Anéis, tiros duplos, **fantasmas orbitais** |
-| 3 | Marcos Absoluto | ⭐⭐⭐ Difícil | Barragens, **mísseis teleguiados**, anéis duplos |
+| 1 | Que Cê Disse? | ⭐ Easy | Bullet fans, aimed shot, ring |
+| 2 | Que Tristeza | ⭐⭐ Medium | Rings, double shots, **orbiting ghosts** |
+| 3 | Marcos Absoluto | ⭐⭐⭐ Hard | Barrages, **homing missiles**, double rings |
 
 ---
 
-## 🛠️ Stack Tecnológico
+## 🛠️ Tech Stack
 
-- **HTML5** — estrutura do jogo
-- **CSS3** — animações e estilo visual
-- **JavaScript (Vanilla)** — lógica do jogo, colisões e comportamento dos chefes
+- **HTML5** — game structure
+- **CSS3** — animations and visual style
+- **JavaScript (Vanilla)** — game logic, collisions and boss behavior
 
-Sem bibliotecas externas. Zero dependências. Front-end puro de guerrilha.
+No external libraries. Zero dependencies. Pure guerrilla front-end.
 
 ---
 
-## 📱 Versão Mobile
+## 📱 Mobile Version
 
-Quer jogar no celular? Existe uma versão otimizada para dispositivos móveis:
+Want to play on your phone? There's a version optimized for mobile devices:
 
 👉 **[Marcos Adventure — Mobile](https://github.com/ChristopherDond/MarcosAdventureMobal)**
 
 ---
 
-## 🕹️ Jogue agora
+## 🕹️ Play now
 
 👉 **[Marcos Adventure](https://christopherdond.github.io/MarcosAdventure/)**
 
 ---
 
-## 👤 Autor
+## 👤 Author
 
-Construído com carinho (e um toque de vingança estudantil) por **Christopher**.
-
----
-
-## 📄 Licença
-
-Livre para uso educacional, recreativo e para zoação controlada.
-
-*O professor sabe da existência deste repositório? Talvez. Provavelmente. Boa sorte.*
+Built with affection (and a touch of student revenge) by **Christopher**.
 
 ---
 
-*Feito com ☕, HTML puro e muita vingança estudantil*
+## 📄 License
+
+Free for educational, recreational and controlled tomfoolery use.
+
+*Does the professor know this repository exists? Maybe. Probably. Good luck.*
+
+---
+
+*Made with ☕, pure HTML and lots of student revenge*
